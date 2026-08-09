@@ -117,7 +117,7 @@ export default function FishCanvas({ wireframe, isAutoRotating, style }) {
 
   const isMobile = windowWidth <= 576
   const isTablet = windowWidth > 576 && windowWidth <= 992
-  const modelScale = isMobile ? 0.62 : isTablet ? 0.72 : 0.85
+  const modelScale = isMobile ? 0.50 : isTablet ? 0.58 : 0.68
   const bgColor = '#f0e8df'
 
   return (
