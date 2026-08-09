@@ -194,7 +194,7 @@ export default function FishCanvas({ wireframe, isAutoRotating, style }) {
           dampingFactor={0.08}
           enableDamping={true}
           /* Require two-finger touch to rotate on mobile; single-finger scrolls the page */
-          touches={{ ONE: undefined, TWO: 2 }}
+          touches={{ ONE: undefined, TWO: THREE.TOUCH.ROTATE }}
         />
       </Canvas>
     </div>
