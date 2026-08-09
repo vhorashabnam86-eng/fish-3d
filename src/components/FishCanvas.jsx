@@ -193,8 +193,8 @@ export default function FishCanvas({ wireframe, isAutoRotating, style }) {
           rotateSpeed={0.5}
           dampingFactor={0.08}
           enableDamping={true}
-          /* Allow native vertical page scrolling on mobile; use 2 fingers to rotate 3D model on mobile */
-          touches={isMobile ? { ONE: THREE.TOUCH.NONE, TWO: THREE.TOUCH.ROTATE } : { ONE: THREE.TOUCH.ROTATE, TWO: THREE.TOUCH.DOLLY_PAN }}
+          /* Require two-finger touch to rotate on mobile; single-finger scrolls the page */
+          touches={{ ONE: undefined, TWO: 2 }}
         />
       </Canvas>
     </div>
