@@ -3,7 +3,7 @@ import { useGLTF } from '@react-three/drei'
 import { useFrame } from '@react-three/fiber'
 import * as THREE from 'three'
 
-export default function CutFish({ wireframe = false, isAutoRotating = false, scale = 0.85, extraRotation = 0 }) {
+export default function CutFish({ wireframe = false, isAutoRotating = false, scale = 0.85 }) {
   const groupRef = useRef()
   const pivotRef = useRef()
   const { scene } = useGLTF('/models/cut_fish/scene.gltf')
@@ -62,7 +62,7 @@ export default function CutFish({ wireframe = false, isAutoRotating = false, sca
 
     pivotRef.current.rotation.y = THREE.MathUtils.lerp(
       pivotRef.current.rotation.y,
-      rotationRef.current + extraRotation,
+      rotationRef.current,
       0.08
     )
   })
