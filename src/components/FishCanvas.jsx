@@ -123,12 +123,13 @@ export default function FishCanvas({ wireframe, isAutoRotating, style }) {
   return (
     <div
       ref={containerRef}
-      style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', zIndex: 0, ...style }}
+      style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', zIndex: 0, touchAction: 'pan-y', ...style }}
     >
       <Canvas
         frameloop={isVisible ? 'always' : 'never'}
         dpr={[1, Math.min(typeof window !== 'undefined' ? window.devicePixelRatio : 1, 1.5)]}
         shadows
+        style={{ touchAction: 'pan-y' }}
         gl={{
           antialias: true,
           alpha: true,
@@ -185,15 +186,15 @@ export default function FishCanvas({ wireframe, isAutoRotating, style }) {
 
         <OrbitControls
           target={[0, -0.12, 0]}
-          enableZoom={true}
-          maxDistance={12}
-          minDistance={3}
+          enableZoom={false}
           enablePan={false}
           maxPolarAngle={Math.PI / 1.8}
           minPolarAngle={Math.PI / 5}
           rotateSpeed={0.5}
           dampingFactor={0.08}
           enableDamping={true}
+          /* Require two-finger touch to rotate on mobile; single-finger scrolls the page */
+          touches={{ ONE: undefined, TWO: 2 }}
         />
       </Canvas>
     </div>

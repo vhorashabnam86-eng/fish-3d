@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef, useMemo, useCallback, Suspense, laz
 import Header from './components/Header'
 import MenuSection from './components/MenuSection'
 import ErrorBoundary from './components/ErrorBoundary'
-import { Eye, ChevronRight, Utensils, Sparkles } from 'lucide-react'
+import { Eye, ChevronRight, Utensils, Sparkles, ArrowUp } from 'lucide-react'
 
 // Code splitting for heavy off-screen and modal components
 const FishCanvas = lazy(() => import('./components/FishCanvas'))
@@ -79,11 +79,10 @@ function OrbitRing({ items, radiusX, radiusY, duration, reverse = false, classNa
             if (child) {
               const depthScale = 0.84 + (sinVal + 1) * 0.11
               const depthOpacity = 0.60 + (sinVal + 1) * 0.20
-              const zIndex = sinVal > 0 ? 20 : 5
 
-              child.style.transform = `translate(${x}px, ${y}px) translate(-50%, -50%) scale(${depthScale})`
+              // Use translate3d for GPU-accelerated compositing; avoid per-frame zIndex mutations that trigger layout reflows
+              child.style.transform = `translate3d(${x}px, ${y}px, 0) translate(-50%, -50%) scale(${depthScale})`
               child.style.opacity = depthOpacity
-              child.style.zIndex = zIndex
             }
           }
         }
@@ -162,7 +161,7 @@ function IngredientRing({ items, radiusX, radiusY, duration }) {
 
             const child = children[i]
             if (child) {
-              child.style.transform = `translate(${x}px, ${y}px) translate(-50%, -50%)`
+              child.style.transform = `translate3d(${x}px, ${y}px, 0) translate(-50%, -50%)`
             }
           }
         }
@@ -203,6 +202,7 @@ export default function App() {
   ])
 
   const [windowWidth, setWindowWidth] = useState(() => typeof window !== 'undefined' ? window.innerWidth : 1200)
+  const [showScrollTop, setShowScrollTop] = useState(false)
 
   useEffect(() => {
     let timeoutId = null
@@ -217,6 +217,21 @@ export default function App() {
       window.removeEventListener('resize', handleResize)
       if (timeoutId) clearTimeout(timeoutId)
     }
+  }, [])
+
+  const showScrollTopRef = useRef(false)
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const shouldShow = window.scrollY > 400
+      // Only trigger a state update when the threshold is actually crossed
+      if (shouldShow !== showScrollTopRef.current) {
+        showScrollTopRef.current = shouldShow
+        setShowScrollTop(shouldShow)
+      }
+    }
+    window.addEventListener('scroll', handleScroll, { passive: true })
+    return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
   // Cart Handlers
@@ -394,6 +409,18 @@ export default function App() {
           onClearCart={handleClearCart}
         />
       </Suspense>
+
+      {/* ========== FLOATING SCROLL TO TOP BUTTON ========== */}
+      {showScrollTop && (
+        <button
+          className="scroll-top-btn"
+          onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+          title="Scroll to Top"
+          aria-label="Scroll to Top"
+        >
+          <ArrowUp size={20} />
+        </button>
+      )}
     </div>
   )
 }
