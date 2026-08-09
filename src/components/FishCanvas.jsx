@@ -123,23 +123,13 @@ export default function FishCanvas({ wireframe, isAutoRotating, style }) {
   return (
     <div
       ref={containerRef}
-      style={{
-        position: 'absolute',
-        top: 0,
-        left: 0,
-        width: '100%',
-        height: '100%',
-        zIndex: 0,
-        pointerEvents: isMobile ? 'none' : 'auto',
-        touchAction: 'pan-y',
-        ...style
-      }}
+      style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', zIndex: 0, touchAction: 'pan-y', ...style }}
     >
       <Canvas
         frameloop={isVisible ? 'always' : 'never'}
         dpr={[1, Math.min(typeof window !== 'undefined' ? window.devicePixelRatio : 1, 1.5)]}
         shadows
-        style={{ pointerEvents: isMobile ? 'none' : 'auto', touchAction: 'pan-y' }}
+        style={{ touchAction: 'pan-y' }}
         gl={{
           antialias: true,
           alpha: true,
@@ -190,7 +180,7 @@ export default function FishCanvas({ wireframe, isAutoRotating, style }) {
 
         <CutFish
           wireframe={wireframe}
-          isAutoRotating={isAutoRotating || isMobile}
+          isAutoRotating={isAutoRotating}
           scale={modelScale}
         />
 
@@ -198,12 +188,13 @@ export default function FishCanvas({ wireframe, isAutoRotating, style }) {
           target={[0, -0.12, 0]}
           enableZoom={false}
           enablePan={false}
-          enabled={!isMobile}
           maxPolarAngle={Math.PI / 1.8}
           minPolarAngle={Math.PI / 5}
           rotateSpeed={0.5}
           dampingFactor={0.08}
           enableDamping={true}
+          /* Allow native vertical page scrolling on mobile; use 2 fingers to rotate 3D model on mobile */
+          touches={isMobile ? { ONE: THREE.TOUCH.NONE, TWO: THREE.TOUCH.ROTATE } : { ONE: THREE.TOUCH.ROTATE, TWO: THREE.TOUCH.DOLLY_PAN }}
         />
       </Canvas>
     </div>
