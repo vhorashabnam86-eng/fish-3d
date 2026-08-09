@@ -80,7 +80,7 @@ function SoftSpotlight() {
   )
 }
 
-export default function FishCanvas({ wireframe, isAutoRotating, style }) {
+export default function FishCanvas({ wireframe, isAutoRotating, extraRotation = 0, style }) {
   const containerRef = useRef(null)
   const [isVisible, setIsVisible] = useState(true)
   const [windowWidth, setWindowWidth] = useState(() => typeof window !== 'undefined' ? window.innerWidth : 1200)
@@ -120,33 +120,9 @@ export default function FishCanvas({ wireframe, isAutoRotating, style }) {
   const modelScale = isMobile ? 0.62 : isTablet ? 0.72 : 0.85
   const bgColor = '#f0e8df'
 
-  const [extraRotation, setExtraRotation] = useState(0)
-  const touchStartRef = useRef({ x: 0, y: 0 })
-
-  const handleTouchStart = (e) => {
-    if (e.touches.length === 1) {
-      touchStartRef.current = { x: e.touches[0].clientX, y: e.touches[0].clientY }
-    }
-  }
-
-  const handleTouchMove = (e) => {
-    if (e.touches.length === 1) {
-      const dx = e.touches[0].clientX - touchStartRef.current.x
-      const dy = e.touches[0].clientY - touchStartRef.current.y
-      touchStartRef.current = { x: e.touches[0].clientX, y: e.touches[0].clientY }
-
-      // Horizontal swipe rotates 3D model; vertical swipe allows native page scroll
-      if (Math.abs(dx) > Math.abs(dy)) {
-        setExtraRotation(prev => prev + dx * 0.015)
-      }
-    }
-  }
-
   return (
     <div
       ref={containerRef}
-      onTouchStart={isMobile ? handleTouchStart : undefined}
-      onTouchMove={isMobile ? handleTouchMove : undefined}
       style={{
         position: 'absolute',
         top: 0,
@@ -154,6 +130,7 @@ export default function FishCanvas({ wireframe, isAutoRotating, style }) {
         width: '100%',
         height: '100%',
         zIndex: 0,
+        pointerEvents: isMobile ? 'none' : 'auto',
         touchAction: 'pan-y',
         ...style
       }}
@@ -162,7 +139,7 @@ export default function FishCanvas({ wireframe, isAutoRotating, style }) {
         frameloop={isVisible ? 'always' : 'never'}
         dpr={[1, Math.min(typeof window !== 'undefined' ? window.devicePixelRatio : 1, 1.5)]}
         shadows
-        style={{ touchAction: 'pan-y' }}
+        style={{ pointerEvents: isMobile ? 'none' : 'auto', touchAction: 'pan-y' }}
         gl={{
           antialias: true,
           alpha: true,

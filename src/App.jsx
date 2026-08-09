@@ -284,6 +284,23 @@ export default function App() {
     ? { rx: Math.min(windowWidth * 0.46, 380), ry: 200 }
     : { rx: 620, ry: 250 }
 
+  const [extraRotation, setExtraRotation] = useState(0)
+  const touchDragRef = useRef({ x: 0 })
+
+  const handleDragStart = (e) => {
+    const clientX = e.touches ? e.touches[0].clientX : e.clientX
+    touchDragRef.current.x = clientX
+  }
+
+  const handleDragMove = (e) => {
+    const clientX = e.touches ? e.touches[0].clientX : e.clientX
+    if (touchDragRef.current.x) {
+      const dx = clientX - touchDragRef.current.x
+      setExtraRotation(prev => prev + dx * 0.018)
+    }
+    touchDragRef.current.x = clientX
+  }
+
   return (
     <div className="app-container">
       {/* ========== STICKY NAVIGATION HEADER ========== */}
@@ -317,6 +334,7 @@ export default function App() {
               <FishCanvas
                 wireframe={wireframe}
                 isAutoRotating={false}
+                extraRotation={extraRotation}
               />
             </Suspense>
           </ErrorBoundary>
@@ -341,9 +359,15 @@ export default function App() {
 
         {/* HERO BOTTOM BAR */}
         <div className="bottom-bar">
-          <div className="bottom-bar-left">
-            <span className="bottom-tag">🐟 Interactive 3D Model</span>
-            <span className="bottom-hint">Drag to Rotate 360°</span>
+          <div
+            className="bottom-bar-left"
+            onTouchStart={handleDragStart}
+            onTouchMove={handleDragMove}
+            onMouseDown={handleDragStart}
+            onMouseMove={(e) => { if (e.buttons === 1) handleDragMove(e) }}
+          >
+            <span className="bottom-tag">🐟 3D Model</span>
+            <span className="bottom-hint">Drag Here to Rotate 360°</span>
           </div>
           <div className="bottom-bar-center">
             <button className="btn-primary" onClick={() => {
