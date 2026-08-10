@@ -80,9 +80,9 @@ function OrbitRing({ items, radiusX, radiusY, duration, reverse = false, classNa
               const depthScale = 0.84 + (sinVal + 1) * 0.11
               const depthOpacity = 0.60 + (sinVal + 1) * 0.20
 
-              // Use translate3d for GPU-accelerated compositing; avoid per-frame zIndex mutations that trigger layout reflows
               child.style.transform = `translate3d(${x}px, ${y}px, 0) translate(-50%, -50%) scale(${depthScale})`
               child.style.opacity = depthOpacity
+              child.style.zIndex = sinVal > 0 ? 20 : 5
             }
           }
         }

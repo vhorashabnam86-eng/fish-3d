@@ -115,6 +115,57 @@ export default function FishCanvas({ wireframe, isAutoRotating, style }) {
     return () => observer.disconnect()
   }, [])
 
+  // Guarantee mouse wheel scrolling and mobile vertical touch scrolling work 100% over 3D Canvas
+  useEffect(() => {
+    const canvasEl = containerRef.current?.querySelector('canvas')
+    if (!canvasEl) return
+
+    canvasEl.style.touchAction = 'pan-y'
+
+    // 1. Stop OrbitControls from hijacking mouse wheel / trackpad page scrolling
+    const handleWheelCapture = (e) => {
+      e.stopImmediatePropagation()
+    }
+
+    // 2. Mobile touch gesture detection:
+    // Vertical swipe -> stop OrbitControls from calling preventDefault(), allowing native page scroll.
+    // Horizontal swipe -> pass to OrbitControls for 3D model rotation.
+    let touchStartX = 0
+    let touchStartY = 0
+    let touchDirection = null
+
+    const handleTouchStart = (e) => {
+      if (e.touches.length !== 1) return
+      touchStartX = e.touches[0].clientX
+      touchStartY = e.touches[0].clientY
+      touchDirection = null
+    }
+
+    const handleTouchMoveCapture = (e) => {
+      if (e.touches.length !== 1) return
+      const dx = Math.abs(e.touches[0].clientX - touchStartX)
+      const dy = Math.abs(e.touches[0].clientY - touchStartY)
+
+      if (!touchDirection && (dx > 4 || dy > 4)) {
+        touchDirection = dy > dx ? 'vertical' : 'horizontal'
+      }
+
+      if (touchDirection === 'vertical') {
+        e.stopImmediatePropagation()
+      }
+    }
+
+    canvasEl.addEventListener('wheel', handleWheelCapture, { capture: true, passive: true })
+    canvasEl.addEventListener('touchstart', handleTouchStart, { capture: true, passive: true })
+    canvasEl.addEventListener('touchmove', handleTouchMoveCapture, { capture: true, passive: true })
+
+    return () => {
+      canvasEl.removeEventListener('wheel', handleWheelCapture, { capture: true })
+      canvasEl.removeEventListener('touchstart', handleTouchStart, { capture: true })
+      canvasEl.removeEventListener('touchmove', handleTouchMoveCapture, { capture: true })
+    }
+  }, [])
+
   const isMobile = windowWidth <= 576
   const isTablet = windowWidth > 576 && windowWidth <= 992
   const modelScale = isMobile ? 0.50 : isTablet ? 0.58 : 0.68
@@ -123,7 +174,17 @@ export default function FishCanvas({ wireframe, isAutoRotating, style }) {
   return (
     <div
       ref={containerRef}
-      style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', zIndex: 0, touchAction: 'pan-y', ...style }}
+      style={{
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        width: '100%',
+        height: '100%',
+        zIndex: 0,
+        touchAction: 'pan-y',
+        cursor: 'grab',
+        ...style
+      }}
     >
       <Canvas
         frameloop={isVisible ? 'always' : 'never'}
@@ -140,7 +201,7 @@ export default function FishCanvas({ wireframe, isAutoRotating, style }) {
       >
         <PerspectiveCamera
           makeDefault
-          position={isMobile ? [0, 0.1, 6.2] : [0, 0.12, 5.0]}
+          position={isMobile ? [0, 0, 6.2] : [0, 0, 5.0]}
           fov={isMobile ? 40 : 34}
         />
 
@@ -170,7 +231,7 @@ export default function FishCanvas({ wireframe, isAutoRotating, style }) {
         <WarmMotes count={25} />
 
         <ContactShadows
-          position={[0, -1.75, 0]}
+          position={[0, -1.25, 0]}
           opacity={0.28}
           scale={10}
           blur={3}
@@ -185,16 +246,15 @@ export default function FishCanvas({ wireframe, isAutoRotating, style }) {
         />
 
         <OrbitControls
-          target={[0, -0.12, 0]}
+          target={[0, 0, 0]}
           enableZoom={false}
           enablePan={false}
           maxPolarAngle={Math.PI / 1.8}
           minPolarAngle={Math.PI / 5}
-          rotateSpeed={0.5}
+          rotateSpeed={0.6}
           dampingFactor={0.08}
           enableDamping={true}
-          /* Require two-finger touch to rotate on mobile; single-finger scrolls the page */
-          touches={{ ONE: undefined, TWO: THREE.TOUCH.ROTATE }}
+          touches={{ ONE: THREE.TOUCH.ROTATE, TWO: THREE.TOUCH.DOLLY_PAN }}
         />
       </Canvas>
     </div>

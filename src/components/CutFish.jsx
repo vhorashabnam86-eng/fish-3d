@@ -16,6 +16,8 @@ export default function CutFish({ wireframe = false, isAutoRotating = false, sca
     const box = new THREE.Box3().setFromObject(scene)
     const center = new THREE.Vector3()
     box.getCenter(center)
+    // Adjust y-center to account for high knife handle height so board and fish body are perfectly centered at origin
+    center.y -= 0.18
 
     scene.children.forEach((child) => {
       child.position.sub(center)
@@ -49,16 +51,18 @@ export default function CutFish({ wireframe = false, isAutoRotating = false, sca
   useFrame((state, delta) => {
     if (!groupRef.current || !pivotRef.current) return
 
+    const t = state.clock.getElapsedTime()
     if (isAutoRotating) {
       rotationRef.current += delta * 0.3
-      const t = state.clock.getElapsedTime()
-      const tiltX = Math.sin(t * 0.4) * 0.012 + Math.sin(t * 0.7) * 0.008
-      const tiltZ = Math.cos(t * 0.3) * 0.01 + Math.cos(t * 0.6) * 0.006
-      groupRef.current.rotation.x = THREE.MathUtils.lerp(groupRef.current.rotation.x, tiltX, 0.05)
-      groupRef.current.rotation.z = THREE.MathUtils.lerp(groupRef.current.rotation.z, tiltZ, 0.05)
-      const hover = Math.sin(t * 0.5) * 0.015
-      groupRef.current.position.y = THREE.MathUtils.lerp(groupRef.current.position.y, hover, 0.04)
     }
+
+    const hover = Math.sin(t * 0.5) * 0.015
+    const tiltX = Math.sin(t * 0.4) * 0.012 + Math.sin(t * 0.7) * 0.008
+    const tiltZ = Math.cos(t * 0.3) * 0.01 + Math.cos(t * 0.6) * 0.006
+
+    groupRef.current.rotation.x = THREE.MathUtils.lerp(groupRef.current.rotation.x, tiltX, 0.05)
+    groupRef.current.rotation.z = THREE.MathUtils.lerp(groupRef.current.rotation.z, tiltZ, 0.05)
+    groupRef.current.position.y = THREE.MathUtils.lerp(groupRef.current.position.y, hover, 0.04)
 
     pivotRef.current.rotation.y = THREE.MathUtils.lerp(
       pivotRef.current.rotation.y,

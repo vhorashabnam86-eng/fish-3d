@@ -406,7 +406,7 @@ body {
 
 .model-glow {
   position: absolute;
-  top: 54%;
+  top: 52%;
   left: 50%;
   transform: translate(-50%, -50%);
   width: 480px;
@@ -419,7 +419,7 @@ body {
 
 .model-glow-ring {
   position: absolute;
-  top: 54%;
+  top: 52%;
   left: 50%;
   transform: translate(-50%, -50%);
   width: 520px;
@@ -503,7 +503,7 @@ body {
 /* Orbit Rings for Spinning Text */
 .orbit-ring-js {
   position: absolute;
-  top: 56%;
+  top: 52%;
   left: 50%;
   width: 0;
   height: 0;
