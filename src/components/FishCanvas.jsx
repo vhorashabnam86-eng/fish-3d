@@ -168,7 +168,7 @@ export default function FishCanvas({ wireframe, isAutoRotating, style }) {
 
   const isMobile = windowWidth <= 576
   const isTablet = windowWidth > 576 && windowWidth <= 992
-  const modelScale = isMobile ? 0.50 : isTablet ? 0.58 : 0.68
+  const modelScale = isMobile ? 0.58 : isTablet ? 0.64 : 0.70
   const bgColor = '#f0e8df'
 
   return (
@@ -201,8 +201,8 @@ export default function FishCanvas({ wireframe, isAutoRotating, style }) {
       >
         <PerspectiveCamera
           makeDefault
-          position={isMobile ? [0, 0, 6.2] : [0, 0, 5.0]}
-          fov={isMobile ? 40 : 34}
+          position={isMobile ? [0, 0, 5.4] : [0, 0, 5.0]}
+          fov={isMobile ? 38 : 34}
         />
 
         <fog attach="fog" args={[bgColor, 12, 28]} />
