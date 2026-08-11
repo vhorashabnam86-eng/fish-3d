@@ -133,7 +133,7 @@ export default function MenuSection({ onAddToCart }) {
           onClick={() => handleScrollTabs('left')}
           aria-label="Scroll tabs left"
         >
-          <ChevronLeft size={18} />
+          <ChevronLeft size={14} />
         </button>
 
         <div className="menu-tabs" ref={tabsRef}>
@@ -153,7 +153,7 @@ export default function MenuSection({ onAddToCart }) {
           onClick={() => handleScrollTabs('right')}
           aria-label="Scroll tabs right"
         >
-          <ChevronRight size={18} />
+          <ChevronRight size={14} />
         </button>
       </div>
 
