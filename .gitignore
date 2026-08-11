@@ -27,3 +27,6 @@ dist-ssr/
 *.sln
 *.sw?
 tunnel.txt
+local_tunnel_url.txt
+*.exe
+vite.config.js.timestamp*

@@ -271,9 +271,9 @@ export default function App() {
   const isSmallLaptop = windowWidth > 992 && windowWidth <= 1366
 
   const mainRing = isMobile
-    ? { rx: Math.min(windowWidth * 0.40, 160), ry: 95 }
+    ? { rx: Math.min(windowWidth * 0.42, 160), ry: 100 }
     : isTablet
-    ? { rx: Math.min(windowWidth * 0.42, 320), ry: 130 }
+    ? { rx: Math.min(windowWidth * 0.43, 320), ry: 125 }
     : isSmallLaptop
     ? { rx: Math.min(windowWidth * 0.44, 430), ry: 145 }
     : { rx: 480, ry: 155 }
@@ -281,7 +281,7 @@ export default function App() {
   const bgRing = isMobile
     ? { rx: Math.min(windowWidth * 0.45, 180), ry: 130 }
     : isTablet
-    ? { rx: Math.min(windowWidth * 0.46, 380), ry: 200 }
+    ? { rx: Math.min(windowWidth * 0.46, 380), ry: 190 }
     : { rx: 620, ry: 250 }
 
   return (

@@ -1834,6 +1834,10 @@ body {
   .footer-container { grid-template-columns: 1fr 1fr; gap: 40px; }
 }
 
+#menu {
+  scroll-margin-top: 80px;
+}
+
 @media (max-width: 768px) {
   .hero-side-cards { display: none; }
   .navbar { padding: 12px 20px; }
@@ -1842,9 +1846,15 @@ body {
   .nav-btn-reservation { padding: 10px 14px; border-radius: 50%; width: 42px; height: 42px; justify-content: center; }
   .mobile-menu-btn { display: flex; }
 
-  /* Hero adjustments */
+  /* Hero adjustments for compact responsive distance */
+  .hero-fullscreen {
+    min-height: 85vh;
+    height: 85vh;
+    max-height: 700px;
+  }
+
   .hero-header-overlay {
-    top: 78px;
+    top: 76px;
     width: 94%;
     z-index: 25;
   }
@@ -1864,12 +1874,24 @@ body {
     letter-spacing: 0.2px;
   }
 
-  .model-glow { width: 300px; height: 300px; }
-  .model-glow-ring { width: 340px; height: 340px; }
+  .orbit-ring-js {
+    top: 50%;
+  }
 
-  /* Section Spacing */
-  .menu-section, .recipe-section, .heritage-section, .reviews-section {
-    padding: 60px 20px;
+  .model-glow { width: 320px; height: 320px; top: 50%; }
+  .model-glow-ring { width: 360px; height: 360px; top: 50%; }
+
+  .bottom-bar {
+    padding: 12px 20px 16px;
+  }
+
+  /* Section Spacing & Smooth Scrolling */
+  .menu-section {
+    padding: 36px 20px 60px;
+  }
+
+  .recipe-section, .heritage-section, .reviews-section {
+    padding: 50px 20px;
   }
 
   .section-title { font-size: 2rem; }
@@ -1934,20 +1956,26 @@ body {
 }
 
 @media (max-width: 480px) {
-  .hero-fullscreen { min-height: 100dvh; height: 100dvh; }
-  .center-text-overlay { top: 80px; }
+  .hero-fullscreen { min-height: 80vh; height: 80vh; max-height: 620px; }
+  .hero-header-overlay { top: 70px; }
+  .hero-title-single { font-size: 2.1rem; }
+  .center-text-overlay { top: 76px; }
   .center-title-main { font-size: 1.85rem; }
   .center-title-line1 { font-size: 0.6rem; letter-spacing: 3px; }
   .center-title-line3 { font-size: 0.9rem; }
 
-  .orbit-text-card { padding: 4px 8px; border-radius: 8px; }
-  .orbit-main-text { font-size: 0.68rem; }
-  .orbit-sub-text { font-size: 0.44rem; letter-spacing: 0.8px; }
+  .orbit-ring-js { top: 50%; }
+  .orbit-text-card { padding: 6px 12px; border-radius: 12px; background: rgba(255, 255, 255, 0.88); }
+  .orbit-main-text { font-size: 0.74rem; }
+  .orbit-sub-text { font-size: 0.52rem; letter-spacing: 0.6px; }
 
   .ingredient-selector-grid { grid-template-columns: 1fr; }
-  .bottom-bar { padding: 12px 16px; flex-wrap: wrap; justify-content: center; gap: 12px; }
+  .bottom-bar { padding: 10px 14px 14px; flex-wrap: nowrap; justify-content: center; gap: 8px; }
   .bottom-bar-left { display: none; }
-  .btn-primary { padding: 10px 20px; font-size: 0.88rem; width: 100%; justify-content: center; }
+  .btn-primary { padding: 11px 22px; font-size: 0.88rem; width: auto; max-width: 100%; justify-content: center; }
+
+  .menu-section { padding: 28px 16px 50px; }
+  .section-header { margin-bottom: 24px; }
 }
 
 /* ============================
