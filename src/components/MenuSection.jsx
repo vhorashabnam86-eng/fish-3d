@@ -1,5 +1,5 @@
-import React, { useState, useMemo, useCallback } from 'react'
-import { Plus, Check, Star, Flame, Clock } from 'lucide-react'
+import React, { useState, useMemo, useCallback, useRef } from 'react'
+import { Plus, Check, Star, Flame, Clock, ChevronLeft, ChevronRight } from 'lucide-react'
 
 const categories = [
   { id: 'all', label: 'All Dishes' },
@@ -93,6 +93,14 @@ const menuItems = [
 export default function MenuSection({ onAddToCart }) {
   const [activeCategory, setActiveCategory] = useState('all')
   const [addedItemIds, setAddedItemIds] = useState({})
+  const tabsRef = useRef(null)
+
+  const handleScrollTabs = (direction) => {
+    if (tabsRef.current) {
+      const scrollAmount = direction === 'left' ? -180 : 180
+      tabsRef.current.scrollBy({ left: scrollAmount, behavior: 'smooth' })
+    }
+  }
 
   const filteredDishes = useMemo(() => {
     return activeCategory === 'all'
@@ -118,17 +126,35 @@ export default function MenuSection({ onAddToCart }) {
         </p>
       </div>
 
-      {/* Category Tabs */}
-      <div className="menu-tabs">
-        {categories.map((cat) => (
-          <button
-            key={cat.id}
-            className={`menu-tab-btn ${activeCategory === cat.id ? 'active' : ''}`}
-            onClick={() => setActiveCategory(cat.id)}
-          >
-            {cat.label}
-          </button>
-        ))}
+      {/* Category Tabs Wrapper with Side Scroll Arrows */}
+      <div className="menu-tabs-wrapper">
+        <button
+          className="tabs-scroll-btn scroll-left"
+          onClick={() => handleScrollTabs('left')}
+          aria-label="Scroll tabs left"
+        >
+          <ChevronLeft size={18} />
+        </button>
+
+        <div className="menu-tabs" ref={tabsRef}>
+          {categories.map((cat) => (
+            <button
+              key={cat.id}
+              className={`menu-tab-btn ${activeCategory === cat.id ? 'active' : ''}`}
+              onClick={() => setActiveCategory(cat.id)}
+            >
+              {cat.label}
+            </button>
+          ))}
+        </div>
+
+        <button
+          className="tabs-scroll-btn scroll-right"
+          onClick={() => handleScrollTabs('right')}
+          aria-label="Scroll tabs right"
+        >
+          <ChevronRight size={18} />
+        </button>
       </div>
 
       {/* Dish Grid */}

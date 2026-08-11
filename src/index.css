@@ -711,13 +711,53 @@ body {
   margin: 0 auto;
 }
 
+.menu-tabs-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  max-width: 100%;
+  margin-bottom: 40px;
+  gap: 8px;
+}
+
+.tabs-scroll-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.95);
+  border: 1px solid rgba(232, 131, 106, 0.35);
+  color: var(--accent-coral);
+  cursor: pointer;
+  flex-shrink: 0;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  z-index: 5;
+}
+
+.tabs-scroll-btn:hover {
+  background: linear-gradient(135deg, var(--accent-peach), var(--accent-coral));
+  color: #fff;
+  border-color: transparent;
+  transform: scale(1.08);
+  box-shadow: 0 6px 18px rgba(232, 131, 106, 0.35);
+}
+
+.tabs-scroll-btn:active {
+  transform: scale(0.95);
+}
+
 .menu-tabs {
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 12px;
-  margin-bottom: 48px;
   flex-wrap: wrap;
+  scroll-behavior: smooth;
 }
 
 .menu-tab-btn {
