@@ -1930,23 +1930,25 @@ body {
 
   /* Section Spacing & Smooth Scrolling */
   .menu-section {
-    padding: 36px 20px 60px;
+    padding: 32px 16px 50px;
   }
 
   .recipe-section, .heritage-section, .reviews-section {
-    padding: 50px 20px;
+    padding: 44px 16px;
   }
 
-  .section-title { font-size: 2rem; }
-  .section-desc { font-size: 0.95rem; }
+  .section-title { font-size: 1.85rem; margin-bottom: 8px; }
+  .section-desc { font-size: 0.88rem; max-width: 90%; margin: 0 auto; }
+  .section-header { margin-bottom: 28px; }
 
-  /* Scrollable Category Pills on Mobile */
+  /* Compact Responsive Menu Section */
   .menu-tabs {
     justify-content: flex-start;
     flex-wrap: nowrap;
     overflow-x: auto;
-    padding: 4px 4px 12px 4px;
-    gap: 10px;
+    padding: 4px 0 10px;
+    margin-bottom: 24px;
+    gap: 8px;
     -webkit-overflow-scrolling: touch;
     scrollbar-width: none;
   }
@@ -1957,22 +1959,81 @@ body {
   .menu-tab-btn {
     flex-shrink: 0;
     white-space: nowrap;
-    padding: 10px 18px;
-    font-size: 0.85rem;
+    padding: 8px 16px;
+    font-size: 0.82rem;
+    border-radius: var(--radius-full);
   }
 
   .menu-grid {
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 20px;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 16px;
+  }
+
+  .dish-card {
+    border-radius: var(--radius-md);
+  }
+
+  .dish-image-wrapper {
+    height: 165px;
+  }
+
+  .dish-badge {
+    top: 10px;
+    left: 10px;
+    font-size: 0.68rem;
+    padding: 3px 10px;
+  }
+
+  .dish-rating {
+    bottom: 10px;
+    right: 10px;
+    padding: 3px 8px;
+    font-size: 0.75rem;
+  }
+
+  .dish-content {
+    padding: 14px 16px 16px;
+  }
+
+  .dish-header {
+    margin-bottom: 6px;
+  }
+
+  .dish-title {
+    font-size: 1.08rem;
+  }
+
+  .dish-price {
+    font-size: 1.08rem;
+  }
+
+  .dish-desc {
+    font-size: 0.82rem;
+    line-height: 1.42;
+    margin-bottom: 12px;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .dish-meta {
+    margin-bottom: 12px;
+    font-size: 0.78rem;
+  }
+
+  .dish-add-btn {
+    padding: 10px 16px;
+    font-size: 0.85rem;
   }
 
   /* Ingredient spotlight */
   .ingredient-selector-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-  .ingredient-pill { padding: 14px; gap: 10px; }
-  .pill-name { font-size: 0.88rem; }
-  .ingredient-detail-card { padding: 24px; }
-  .detail-title { font-size: 1.4rem; }
-  .detail-meta-grid { grid-template-columns: 1fr; gap: 14px; }
+  .ingredient-pill { padding: 12px; gap: 8px; }
+  .pill-name { font-size: 0.85rem; }
+  .ingredient-detail-card { padding: 20px; }
+  .detail-title { font-size: 1.3rem; }
+  .detail-meta-grid { grid-template-columns: 1fr; gap: 12px; }
 
   /* Timeline */
   .timeline-track { left: 24px; }
@@ -1999,26 +2060,50 @@ body {
 }
 
 @media (max-width: 480px) {
-  .hero-fullscreen { min-height: 80vh; height: 80vh; max-height: 620px; }
-  .hero-header-overlay { top: 70px; }
-  .hero-title-single { font-size: 2.1rem; }
-  .center-text-overlay { top: 76px; }
-  .center-title-main { font-size: 1.85rem; }
+  .hero-fullscreen { min-height: 78vh; height: 78vh; max-height: 580px; }
+  .hero-header-overlay { top: 68px; }
+  .hero-title-single { font-size: 1.95rem; }
+  .center-text-overlay { top: 72px; }
+  .center-title-main { font-size: 1.7rem; }
   .center-title-line1 { font-size: 0.6rem; letter-spacing: 3px; }
   .center-title-line3 { font-size: 0.9rem; }
 
-  .orbit-ring-js { top: 50%; }
-  .orbit-text-card { padding: 6px 12px; border-radius: 12px; background: rgba(255, 255, 255, 0.88); }
-  .orbit-main-text { font-size: 0.74rem; }
-  .orbit-sub-text { font-size: 0.52rem; letter-spacing: 0.6px; }
+  .orbit-ring-js { top: 48%; }
+  .orbit-text-card { padding: 5px 10px; border-radius: 10px; background: rgba(255, 255, 255, 0.9); }
+  .orbit-main-text { font-size: 0.72rem; }
+  .orbit-sub-text { font-size: 0.5rem; letter-spacing: 0.4px; }
 
-  .ingredient-selector-grid { grid-template-columns: 1fr; }
-  .bottom-bar { padding: 10px 14px 14px; flex-wrap: nowrap; justify-content: center; gap: 8px; }
+  .ingredient-selector-grid { grid-template-columns: 1fr 1fr; gap: 8px; }
+  .ingredient-pill { padding: 10px 12px; gap: 8px; }
+  .pill-name { font-size: 0.82rem; }
+
+  .bottom-bar { padding: 8px 12px 12px; flex-wrap: nowrap; justify-content: center; gap: 8px; }
   .bottom-bar-left { display: none; }
-  .btn-primary { padding: 11px 22px; font-size: 0.88rem; width: auto; max-width: 100%; justify-content: center; }
+  .btn-primary { padding: 10px 20px; font-size: 0.85rem; width: auto; max-width: 100%; justify-content: center; }
 
-  .menu-section { padding: 28px 16px 50px; }
-  .section-header { margin-bottom: 24px; }
+  .menu-section { padding: 24px 12px 40px; }
+  .section-header { margin-bottom: 20px; }
+
+  .menu-grid {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+
+  .dish-image-wrapper {
+    height: 150px;
+  }
+
+  .dish-content {
+    padding: 12px 14px 14px;
+  }
+
+  .dish-title {
+    font-size: 1.02rem;
+  }
+
+  .dish-price {
+    font-size: 1.02rem;
+  }
 }
 
 /* ============================
