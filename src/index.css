@@ -1889,11 +1889,11 @@ body {
   .nav-btn-reservation { padding: 10px 14px; border-radius: 50%; width: 42px; height: 42px; justify-content: center; }
   .mobile-menu-btn { display: flex; }
 
-  /* Hero adjustments for compact responsive distance */
+  /* Hero adjustments for perfectly balanced equal vertical spacing */
   .hero-fullscreen {
     min-height: 85vh;
     height: 85vh;
-    max-height: 700px;
+    max-height: 680px;
   }
 
   .hero-header-overlay {
@@ -1902,30 +1902,26 @@ body {
     z-index: 25;
   }
 
-  .hero-title-main {
-    font-size: 2.2rem;
-    letter-spacing: -0.5px;
+  .hero-badge {
+    font-size: 0.68rem;
+    padding: 5px 14px;
+    margin-bottom: 6px;
   }
 
-  .hero-title-sub {
-    font-size: 0.72rem;
-    letter-spacing: 3px;
-  }
-
-  .hero-subtitle {
-    font-size: 0.78rem;
-    letter-spacing: 0.2px;
+  .hero-title-single {
+    font-size: 2.0rem;
+    line-height: 1.2;
   }
 
   .orbit-ring-js {
-    top: 50%;
+    top: 54%;
   }
 
-  .model-glow { width: 320px; height: 320px; top: 50%; }
-  .model-glow-ring { width: 360px; height: 360px; top: 50%; }
+  .model-glow { width: 300px; height: 300px; top: 54%; }
+  .model-glow-ring { width: 340px; height: 340px; top: 54%; }
 
   .bottom-bar {
-    padding: 12px 20px 16px;
+    padding: 12px 20px 18px;
   }
 
   /* Section Spacing & Smooth Scrolling */
@@ -2060,15 +2056,15 @@ body {
 }
 
 @media (max-width: 480px) {
-  .hero-fullscreen { min-height: 78vh; height: 78vh; max-height: 580px; }
-  .hero-header-overlay { top: 68px; }
-  .hero-title-single { font-size: 1.95rem; }
-  .center-text-overlay { top: 72px; }
-  .center-title-main { font-size: 1.7rem; }
-  .center-title-line1 { font-size: 0.6rem; letter-spacing: 3px; }
-  .center-title-line3 { font-size: 0.9rem; }
+  .hero-fullscreen { min-height: 80vh; height: 80vh; max-height: 600px; }
+  .hero-header-overlay { top: 70px; }
+  .hero-badge { font-size: 0.62rem; padding: 4px 12px; margin-bottom: 4px; }
+  .hero-title-single { font-size: 1.75rem; line-height: 1.2; }
 
-  .orbit-ring-js { top: 48%; }
+  .orbit-ring-js { top: 55%; }
+  .model-glow { width: 250px; height: 250px; top: 55%; }
+  .model-glow-ring { width: 280px; height: 280px; top: 55%; }
+
   .orbit-text-card { padding: 5px 10px; border-radius: 10px; background: rgba(255, 255, 255, 0.9); }
   .orbit-main-text { font-size: 0.72rem; }
   .orbit-sub-text { font-size: 0.5rem; letter-spacing: 0.4px; }
@@ -2077,7 +2073,7 @@ body {
   .ingredient-pill { padding: 10px 12px; gap: 8px; }
   .pill-name { font-size: 0.82rem; }
 
-  .bottom-bar { padding: 8px 12px 12px; flex-wrap: nowrap; justify-content: center; gap: 8px; }
+  .bottom-bar { padding: 10px 14px 14px; flex-wrap: nowrap; justify-content: center; gap: 8px; }
   .bottom-bar-left { display: none; }
   .btn-primary { padding: 10px 20px; font-size: 0.85rem; width: auto; max-width: 100%; justify-content: center; }
 

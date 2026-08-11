@@ -271,9 +271,9 @@ export default function App() {
   const isSmallLaptop = windowWidth > 992 && windowWidth <= 1366
 
   const mainRing = isMobile
-    ? { rx: Math.min(windowWidth * 0.42, 160), ry: 100 }
+    ? { rx: Math.min(windowWidth * 0.40, 150), ry: 90 }
     : isTablet
-    ? { rx: Math.min(windowWidth * 0.43, 320), ry: 125 }
+    ? { rx: Math.min(windowWidth * 0.42, 300), ry: 115 }
     : isSmallLaptop
     ? { rx: Math.min(windowWidth * 0.44, 430), ry: 145 }
     : { rx: 480, ry: 155 }
